@@ -1,0 +1,292 @@
+<mvc:View controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	xmlns:s="sap.suite.ui.commons"
+	xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout"
+	xmlns:viz="sap.viz.ui5.controls"
+	height="100%">
+	<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageHeader objectTitle="Section sample">
+
+			</ObjectPageHeader>
+		</headerTitle>
+
+		<headerContent>
+			<m:ObjectAttribute title="" text="This example explains the rules for the rendering of sections"/>
+		</headerContent>
+
+		<sections>
+        <ObjectPageSection titleUppercase="false" title="update">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<blocks>
+                            <f:SimpleForm id="jhjjgqwefqwj"
+			editable="false"
+			layout="ColumnLayout"
+			title="Address" >
+			
+            		<m:Label text="날짜 입력" labelFor="DRS2" />
+		<m:DateRangeSelection
+			id="DRS2"
+			displayFormat="yyyy-MM-dd"
+			change="handleChange"/>
+					<f:content>
+				<!-- <m:Label text="조직코드" labelFor="VKORG"/>
+				<m:Input id="VKORG" value="" /> -->
+				<m:ComboBox items= "{path: 'search>/MText'}"  id="VKORG">
+				<core:Item key="{search>key}" text="{search>text}"/>
+				</m:ComboBox>
+			</f:content>	
+                    <m:Button text="FILTER" type="Emphasized" tooltip="pull-down" press="onFilterSearch2" />
+					<m:Button text="GRAPH" type="Emphasized" tooltip="pull-down" press="onGraph" />
+           
+		</f:SimpleForm>
+		
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+        <ObjectPageSection titleUppercase="false" title="graph">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<blocks>
+						
+							
+								<s:ChartContainer
+		id="idChartContainer"
+		showFullScreen="true"
+		showPersonalization="true"
+		autoAdjustHeight="false"
+		title="총매출">
+		<s:content>
+			<s:ChartContainerContent
+				icon="sap-icon://line-chart"
+				title="Line Chart">
+				<s:content>
+				<viz:Popover id="idPopOver"></viz:Popover>
+					<viz:VizFrame id="idoVizFrame" height="700px" width="100%"
+					              uiConfig="{applicationSet:'fiori'}"
+								  vizProperties="{
+                    plotArea : {
+                        dataLabel: {
+                            visible: false
+                        },
+                        colorPalette : [ '#132424', '#999999']
+                    },
+                    title : {
+                        text : '직영점 별 매출 분석',
+                        visible : true
+                    },
+                    valueAxis : {
+                        title : {
+                            text : '총 매출',
+                            visible : true
+                        }
+                    },
+                    categoryAxis : {
+                        title : {
+                            text : '직영점',
+                            visible : true
+                        }
+                    }
+                }"></viz:VizFrame>
+				</s:content>
+			</s:ChartContainerContent>
+			<s:ChartContainerContent
+				icon="sap-icon://table-view"
+				title="Table">
+				<s:content>
+					<!-- <m:Table id="idTable"></m:Table> -->
+<m:Table id="idProductsTable1" mode="SingleSelectMaster" 
+		selectionChange="onSelectionChange"  								                              
+		inset="false"
+		items="{/ZZ1_SALES}">
+		<m:headerToolbar>
+			<m:OverflowToolbar>
+				<m:content>
+					<m:Title text="Products" level="H2"/>
+					<m:ToolbarSpacer />
+					
+				</m:content>
+			</m:OverflowToolbar>
+		</m:headerToolbar>
+
+		<m:columns>
+			<m:Column
+				width="12em">
+				<m:Text text="예약번호" />
+			</m:Column>
+
+            <m:Column
+				width="12em">
+				<m:Text text="총금액" />
+			</m:Column>
+
+            <m:Column
+				width="12em">
+				<m:Text text="DATE" />
+			</m:Column>
+
+            <m:Column
+				width="12em">
+				<m:Text text="직영점코드" />
+			</m:Column>
+
+			<m:Column
+				width="12em">
+				<m:Text text="직영점이름" />
+			</m:Column>
+
+		</m:columns>
+		<m:items>
+			<m:ColumnListItem vAlign="Middle">
+				<m:cells>
+					<m:Text
+						text="{Rvnum}" />
+				</m:cells>
+                <m:cells>
+					<m:Text
+						text="{Tprice}" />
+                </m:cells>
+                <m:cells>
+					<!-- <m:Text
+						text="{Rvdate}" /> -->
+
+                        <m:Text text="{path : 'Rvdate', type: 'sap.ui.model.odata.type.Date',
+                                formatOptions: {
+                                    pattern: 'yyyy-MM-dd'
+                                }}" />
+                </m:cells>
+                <m:cells>
+					<m:Text
+						text="{Vkorg}" />
+                </m:cells>
+				<m:cells>
+					<m:Text
+						text="{Butxt}" />
+                </m:cells>
+			</m:ColumnListItem>
+		</m:items>
+	</m:Table>
+				</s:content>
+			</s:ChartContainerContent>
+		</s:content>
+		<s:customIcons>
+			<core:Icon id="customIcon" src="sap-icon://print" tooltip="Custom Content Print" press="onCustomActionPress"
+				></core:Icon>
+		</s:customIcons>
+		<s:toolbar>
+			<m:OverflowToolbar id="appToolbar">
+				<m:Button id="btnAction1" text="CustomAction" type="Transparent" press="onCustomActionPress"></m:Button>
+				<m:ToolbarSpacer/>
+				<m:Button id="btnAction2" text="CustomAction" type="Transparent" press="onCustomActionPress"></m:Button>
+				<s:ChartContainerToolbarPlaceholder></s:ChartContainerToolbarPlaceholder>
+			</m:OverflowToolbar>
+		</s:toolbar>
+		<s:dimensionSelectors>
+			<m:Select id="idSelector">
+				<core:Item key="0" text="Sales by Country"/>
+			</m:Select>
+		</s:dimensionSelectors>
+	</s:ChartContainer>
+						
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			
+			<ObjectPageSection titleUppercase="false" title="Section 5">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+
+						<blocks>
+                        
+                                <m:Table id="idProductsTable" mode="SingleSelectMaster" 
+		selectionChange="onSelectionChange"  								                              
+		inset="false"
+		items="{/ZZ1_SALES}">
+		<m:headerToolbar>
+			<m:OverflowToolbar>
+				<m:content>
+					<m:Title text="Products" level="H2"/>
+					<m:ToolbarSpacer />
+					
+				</m:content>
+			</m:OverflowToolbar>
+		</m:headerToolbar>
+
+		<m:columns>
+			<m:Column
+				width="12em">
+				<m:Text text="예약번호" />
+			</m:Column>
+
+            <m:Column
+				width="12em">
+				<m:Text text="총금액" />
+			</m:Column>
+
+            <m:Column
+				width="12em">
+				<m:Text text="DATE" />
+			</m:Column>
+
+            <m:Column
+				width="12em">
+				<m:Text text="직영점코드" />
+			</m:Column>
+
+			<m:Column
+				width="12em">
+				<m:Text text="직영점이름" />
+			</m:Column>
+
+		</m:columns>
+		<m:items>
+			<m:ColumnListItem vAlign="Middle">
+				<m:cells>
+					<m:Text
+						text="{Rvnum}" />
+				</m:cells>
+                <m:cells>
+					<m:Text
+						text="{Tprice}" />
+                </m:cells>
+                <m:cells>
+					<!-- <m:Text
+						text="{Rvdate}" /> -->
+
+                        <m:Text text="{path : 'Rvdate', type: 'sap.ui.model.odata.type.Date',
+                                formatOptions: {
+                                    pattern: 'yyyy-MM-dd'
+                                }}" />
+                </m:cells>
+                <m:cells>
+					<m:Text
+						text="{Vkorg}" />
+                </m:cells>
+				<m:cells>
+					<m:Text
+						text="{Butxt}" />
+                </m:cells>
+			</m:ColumnListItem>
+		</m:items>
+	</m:Table>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+
+		</sections>
+
+	</ObjectPageLayout>
+
+
+
+</mvc:View>
